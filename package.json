@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "@discordjs/opus": "^0.9.0",
+    "@discordjs/voice": "^0.16.1",
+    "@googleapis/youtube": "^13.0.0",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "ffmpeg-static": "^5.2.0",
+    "sodium": "^3.0.2",
+    "ytdl-core": "^4.11.5"
+  },
+  "main": "index.js"
+}
