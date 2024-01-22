@@ -3,4 +3,4 @@ node_modules
 .eslintrc.json
 .venv
 voice/*.mp3
-voice/*.json
+voice/transcript
