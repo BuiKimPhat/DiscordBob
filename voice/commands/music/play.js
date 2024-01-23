@@ -12,9 +12,9 @@ module.exports = {
         const query = query1.replace(".", "").trim();
         console.log(query);
         if (query) {
-            const song = await MusicPlayer.play(query);
+            const embedReply = await MusicPlayer.play(query, params.username);
             const channel = params.client.channels.cache.get(botDefaultTextChannelID);
-            await channel.send(`Playing: ${song}`);    
+            await channel.send({ embeds: [embedReply] });   
         } else {
             await MusicPlayer.huh();
             const channel = params.client.channels.cache.get(botDefaultTextChannelID);

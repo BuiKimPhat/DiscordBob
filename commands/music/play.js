@@ -24,8 +24,8 @@ module.exports = {
         MusicPlayer.init();
         connection.subscribe(MusicPlayer.player);
         const query = interaction.options.getString("query")
-        const song = await MusicPlayer.play(query);
+        const embedReply = await MusicPlayer.play(query, interaction.user.displayName);
        
-        await interaction.reply(`Playing: ${song}`)
+        await interaction.reply({ embeds: [embedReply] });
     },
 };

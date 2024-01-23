@@ -1,6 +1,16 @@
 const { createAudioPlayer, createAudioResource, NoSubscriberBehavior } = require("@discordjs/voice");
 const ytdl = require('ytdl-core');
 const youtube = require("@googleapis/youtube").youtube("v3");
+const { EmbedBuilder } = require('discord.js');
+const jsdom = require("jsdom");
+
+const htmlDecode = (input) => {
+    const jsd = new jsdom.JSDOM();
+    const parser = new jsd.window.DOMParser();
+    const doc = parser.parseFromString(input, 'text/html');
+    console.log(doc.documentElement.textContent)
+    return doc.documentElement.textContent;
+}
 
 const isValidUrl = query => {
     try { 
@@ -24,25 +34,32 @@ var MusicPlayer = {
             console.error('Error:', error);
         });
         this.player.on('stateChange', (oldState, newState) => {
-            console.log(`Audio player transitioned from ${oldState.status} to ${newState.status}`);
+            // console.log(`Audio player transitioned from ${oldState.status} to ${newState.status}`);
             if (newState.status == 'idle') this.stop();
         });
     },
     play: async function(query) {
         let url = "";
         let title = "Not found";
+        let embedReply = new EmbedBuilder().setColor(0x0099FF);
         if (!isValidUrl(query)){
             const res = await youtube.search.list({part: "snippet", order: "relevance", type: "video", q: query, auth: process.env.YOUTUBE_TOKEN});
             if (res.data.items && res.data.items.length > 0){
                 url = `https://www.youtube.com/watch?v=${res.data.items[0].id.videoId}`;
-                title = res.data.items[0].snippet.title;    
+                title = res.data.items[0].snippet.title;
+                embedReply.setAuthor({ name: res.data.items[0].snippet.channelTitle, iconURL: 'https://www.youtube.com/s/desktop/d84e1538/img/favicon_96x96.png' })
+                    .setDescription(res.data.items[0].snippet.description)
+                    .setImage(res.data.items[0].snippet.thumbnails.medium.url)
             } else {
                 this.huh();
             }
         } else {
             url = query;
-            title = url;
+            title = url; 
         }
+        embedReply.setTitle(htmlDecode(title)).setURL(url).setTimestamp()
+            .setFooter({ text: `Called by ${username}` });;
+
         const stream = ytdl(url, { filter: 'audioonly' });
         let resource = createAudioResource(stream, { inlineVolume: true });
         resource.volume.setVolume(this.volume);
