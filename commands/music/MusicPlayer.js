@@ -38,7 +38,7 @@ var MusicPlayer = {
             if (newState.status == 'idle') this.stop();
         });
     },
-    play: async function(query) {
+    play: async function(query, username) {
         let url = "";
         let title = "Not found";
         let embedReply = new EmbedBuilder().setColor(0x0099FF);

@@ -4,7 +4,7 @@ A discord bot (Bob Assistant) with ASR, GPT, play music from Youtube, and more..
 ## Dependencies
 - ffmpeg python3 python3-venv python3-pip libtool espeak
 - nodejs
-- pip: openai-whisper pyttsx3
+- pip: openai-whisper TTS
 - npm: install (use package.json)
 - .env: BOT_TOKEN, APP_ID, GUILD_ID, YOUTUBE_TOKEN, TEXT_CHANNEL_ID, VOICE_CHANNEL_ID
 

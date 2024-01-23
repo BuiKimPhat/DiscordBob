@@ -4,3 +4,4 @@ node_modules
 .venv
 voice/*.mp3
 voice/transcript/*
+package-lock.json
