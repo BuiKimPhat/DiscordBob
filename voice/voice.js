@@ -69,7 +69,7 @@ class Bob {
       await this.saveAudio(bufferOut, userId);
       if (!this.isProcessing){
         if (!this.isListeningToCommand) await this.predictWakeWord(userId, username);
-        else if (this.commanderId == userId) await this.predictVoiceCommand(Client, connection, userId, "Nobody");  
+        else if (this.commanderId == userId) await this.predictVoiceCommand(Client, connection, userId, username);  
       }
     });
   }
@@ -190,7 +190,7 @@ class Bob {
     });
   }
 
-  async predictVoiceCommand(client, connection, userId) {
+  async predictVoiceCommand(client, connection, userId, username) {
     this.isProcessing = true;
     const whisperProcess = spawn(".venv/bin/whisper", [
       "--model", "small",
@@ -213,6 +213,7 @@ class Bob {
             client,
             connection,
             input: result,
+            username,
             commandName: command.commandName,
           }
           command.command.execute(params);
