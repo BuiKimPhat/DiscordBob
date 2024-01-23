@@ -112,6 +112,10 @@ class Bob {
     }
   }
 
+  getLang(){
+    return this.language;
+  }
+
   setLang(language) {
     this.language = language;
   }
