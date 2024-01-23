@@ -64,7 +64,7 @@ var MusicPlayer = {
         let resource = createAudioResource(stream, { inlineVolume: true });
         resource.volume.setVolume(this.volume);
         this.player.play(resource);        
-        return title;
+        return embedReply;
     }
     ,
     stop: function() {
