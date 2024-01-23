@@ -6,7 +6,7 @@ RUN apt update && apt install -y curl git &&\
     git clone https://github.com/BuiKimPhat/DiscordBob.git
 WORKDIR /root/DiscordBob
 
-RUN apt install -y ffmpeg python3 python3-venv python3-pip libtool espeak
+RUN apt update && apt install -y ffmpeg python3 python3-venv python3-pip libtool espeak
 RUN python3 -m venv .venv && chmod -R 777 .venv &&\
     .venv/bin/activate &&\
     .venv/bin/pip install openai-whisper pyttsx3

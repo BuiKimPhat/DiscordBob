@@ -2,7 +2,7 @@ var MusicPlayer = require("../../../commands/music/MusicPlayer")
 const botDefaultTextChannelID = process.env.TEXT_CHANNEL_ID;
 
 module.exports = {
-    names: ['play','play music', 'play the music', 'play song', 'play the song', 'play track', 'play the track'],
+    names: ['play','play music', 'play the music', 'play song', 'play the song', 'play track', 'play the track', "phát nhạc"],
     async execute(params) {
         // MusicPlayer.init();
         // params.connection.subscribe(MusicPlayer.player);

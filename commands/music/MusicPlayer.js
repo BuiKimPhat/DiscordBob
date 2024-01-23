@@ -32,7 +32,7 @@ var MusicPlayer = {
         let url = "";
         let title = "Not found";
         if (!isValidUrl(query)){
-            const res = await youtube.search.list({part: "snippet", order: "relevance", q: query, auth: process.env.YOUTUBE_TOKEN});
+            const res = await youtube.search.list({part: "snippet", order: "relevance", type: "video", q: query, auth: process.env.YOUTUBE_TOKEN});
             if (res.data.items && res.data.items.length > 0){
                 url = `https://www.youtube.com/watch?v=${res.data.items[0].id.videoId}`;
                 title = res.data.items[0].snippet.title;    
