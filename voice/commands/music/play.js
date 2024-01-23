@@ -1,5 +1,5 @@
 var MusicPlayer = require("../../../commands/music/MusicPlayer")
-const botDefaultTextChannelID = "730644386727198770";
+const botDefaultTextChannelID = process.env.TEXT_CHANNEL_ID;
 
 module.exports = {
     names: ['play','play music', 'play the music', 'play song', 'play the song', 'play track', 'play the track'],

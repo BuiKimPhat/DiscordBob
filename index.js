@@ -5,7 +5,7 @@ require('dotenv').config();
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { joinVoiceChannel, createAudioPlayer, createAudioResource, NoSubscriberBehavior } = require("@discordjs/voice");
 const Bob = require("./voice/voice.js")
-const defaultVoiceChannelID = "694505321762127924";
+const defaultVoiceChannelID = process.env.VOICE_CHANNEL_ID;
 
 const client = new Client({ intents: [
 	GatewayIntentBits.Guilds,

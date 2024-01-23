@@ -1,6 +1,6 @@
 var MusicPlayer = require("../../../commands/music/MusicPlayer")
 const Bob = require("../../voice")
-const botDefaultTextChannelID = "730644386727198770";
+const botDefaultTextChannelID = process.env.TEXT_CHANNEL_ID;
 
 module.exports = {
     names: ['reset bot'],
