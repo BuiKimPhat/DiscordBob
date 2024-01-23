@@ -11,7 +11,7 @@ A discord bot (Bob Assistant) with ASR, GPT, play music from Youtube, and more..
 ## How to run
 (Recommended) Using Docker, build image, then run container:
 ```
-docker build -t dockerbob:latest .
+docker build -t discordbob:latest .
 docker run -d -it --restart always --name DiscordBobGPU --gpus all discordbob:latest
 ```
 
