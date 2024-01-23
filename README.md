@@ -6,7 +6,7 @@ A discord bot (Bob Assistant) with ASR, GPT, play music from Youtube, and more..
 - nodejs
 - pip: openai-whisper pyttsx3
 - npm: install (use package.json)
-- .env: BOT_TOKEN, APP_ID, GUILD_ID, YOUTUBE_TOKEN
+- .env: BOT_TOKEN, APP_ID, GUILD_ID, YOUTUBE_TOKEN, TEXT_CHANNEL_ID, VOICE_CHANNEL_ID
 
 ## How to run
 (Recommended) Using Docker, build image, then run container:
