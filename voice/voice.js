@@ -85,6 +85,7 @@ class Bob {
   //
 
   init() {    
+    this.speakerIdx = "p230";
     this.language = "English";
     this.isListeningToCommand = false;
     this.isProcessing = false;
@@ -118,6 +119,10 @@ class Bob {
   setVolume(vol){
     this.volume = vol;
     MusicPlayer.volume = vol;
+  }
+
+  setSpeakerIdx(idx){
+    this.speakerIdx = idx;
   }
 
   async saveAudio(buffer, userId) {
@@ -239,8 +244,12 @@ class Bob {
   }
 
   async speak(text){
-    const ttsProcess = spawn(".venv/bin/python", [
-      "python/tts.py", `"${text}"`,
+    const ttsProcess = spawn(".venv/bin/tts", [
+      "--model_name", "tts_models/en/vctk/vits",
+      "--use_cuda", "true",
+      "--speaker_idx", this.speakerIdx,
+      "--text", `"${text}"`,
+      "--out_path", "/root/DiscordBob/voice/bob.mp3"
     ]);
     ttsProcess.on('close', (code) => {
       if (code === 0) {
