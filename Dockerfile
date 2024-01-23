@@ -12,7 +12,7 @@ RUN python3 -m venv .venv && chmod -R 777 .venv &&\
     .venv/bin/pip install openai-whisper TTS
 RUN .venv/bin/whisper --model tiny --output_dir ./voice/transcript -f json audio/huh.mp3
 RUN .venv/bin/whisper --model small --output_dir ./voice/transcript -f json audio/huh.mp3
-RUN .venv/bin/tts --model_name tts_models/en/vctk/vits --use_cuda true --speaker_idx p230 --text "hi" --out_path /root/DiscordBob/voice/bob.mp3
+RUN .venv/bin/tts --model_name tts_models/en/vctk/vits --speaker_idx p230 --text "hi" --out_path /root/DiscordBob/voice/bob.mp3
 RUN curl -fsSL https://deb.nodesource.com/setup_21.x | bash - && apt-get install -y nodejs
 RUN npm install
 
