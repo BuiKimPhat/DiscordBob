@@ -13,6 +13,7 @@ module.exports = {
             targetLang = "English";
             Bob.instance.setLang(targetLang);
         }
+        Bob.instance.speak(`Language has been set to ${targetLang}!`);
         const channel = params.client.channels.cache.get(botDefaultTextChannelID);
         await channel.send(`Bob's recognition language has been set to ${targetLang}!`);
     },

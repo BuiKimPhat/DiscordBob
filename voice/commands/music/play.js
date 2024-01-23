@@ -1,4 +1,5 @@
 var MusicPlayer = require("../../../commands/music/MusicPlayer")
+const Bob = require("../../voice");
 const botDefaultTextChannelID = process.env.TEXT_CHANNEL_ID;
 
 module.exports = {
@@ -13,6 +14,7 @@ module.exports = {
         console.log(query);
         if (query) {
             const embedReply = await MusicPlayer.play(query, params.username);
+            Bob.instance.speak("Playing music!");
             const channel = params.client.channels.cache.get(botDefaultTextChannelID);
             await channel.send({ embeds: [embedReply] });   
         } else {

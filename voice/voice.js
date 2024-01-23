@@ -67,10 +67,10 @@ class Bob {
       const bufferOut = Buffer.concat(bufferArr);
       // console.log(bufferOut)
       await this.saveAudio(bufferOut, userId);
-      if (!this.isProcessing){
+      // if (!this.isProcessing){
         if (!this.isListeningToCommand) await this.predictWakeWord(userId, username);
         else if (this.commanderId == userId) await this.predictVoiceCommand(Client, connection, userId, username);  
-      }
+      // }
     });
   }
 

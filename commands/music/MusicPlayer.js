@@ -23,7 +23,7 @@ const isValidUrl = query => {
 
 var MusicPlayer = {
     player: null,
-    volume: 0.9,
+    volume: 0.5,
     init: function() {
         this.player = createAudioPlayer({
             behaviors: {
