@@ -162,7 +162,7 @@ class Bob {
     const whisperProcess = spawn(".venv/bin/whisper", [
       "--model", "tiny",
       "--output_dir", "./voice/transcript",
-      "--language", this.language,
+      "--language", "en",
       "-f", "json",
       `voice/${userId}.mp3`
     ]);
@@ -193,7 +193,7 @@ class Bob {
   async predictVoiceCommand(client, connection, userId) {
     this.isProcessing = true;
     const whisperProcess = spawn(".venv/bin/whisper", [
-      "--model", "base",
+      "--model", "small",
       "--output_dir", "./voice/transcript",
       "--language", this.language,
       "-f", "json",
