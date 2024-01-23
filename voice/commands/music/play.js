@@ -13,7 +13,7 @@ module.exports = {
         const query = query1.replace(".", "").trim();
         console.log(query);
         if (query) {
-            Bob.instance.speak("Playing music!");
+            // await Bob.instance.speak("Playing music!");
             const embedReply = await MusicPlayer.play(query, params.username);
             const channel = params.client.channels.cache.get(botDefaultTextChannelID);
             await channel.send({ embeds: [embedReply] });   
