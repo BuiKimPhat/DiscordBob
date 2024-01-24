@@ -187,7 +187,7 @@ class Bob {
           // wake word met
           this.commanderId = userId;
           this.isListeningToCommand = true;
-          this.speak(`Listening to ${username}`);
+          MusicPlayer.audio("listening.mp3");
         }
         console.log(`${userId} wake: ` + result);
       } else {

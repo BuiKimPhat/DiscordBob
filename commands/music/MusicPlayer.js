@@ -39,7 +39,7 @@ var MusicPlayer = {
         });
     },
     play: async function(query, username) {
-        let url = "https://www.youtube.com/404/";
+        let url = "";
         let title = "Not found";
         let embedReply = new EmbedBuilder().setColor(0x0099FF);
         if (!isValidUrl(query)){
@@ -79,6 +79,10 @@ var MusicPlayer = {
     },
     huh: function(){
         const resource = createAudioResource("/root/DiscordBob/audio/huh.mp3");
+        this.player.play(resource);
+    },
+    audio: function(audioName){
+        const resource = createAudioResource(`/root/DiscordBob/audio/${audioName}`);
         this.player.play(resource);
     },
     speak: function(){
