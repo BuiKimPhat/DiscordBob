@@ -2,7 +2,7 @@ FROM nvidia/cuda:12.3.1-base-ubuntu20.04
 ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /root
-RUN apt update && apt install -y curl git &&\
+RUN apt update && apt install -y curl wget git &&\
     git clone https://github.com/BuiKimPhat/DiscordBob.git
 WORKDIR /root/DiscordBob
 

@@ -67,10 +67,10 @@ class Bob {
       const bufferOut = Buffer.concat(bufferArr);
       // console.log(bufferOut)
       await this.saveAudio(bufferOut, userId);
-      // if (!this.isProcessing){
+      if (!this.processingId.has(userId)){
         if (!this.isListeningToCommand) await this.predictWakeWord(userId, username);
-        else if (this.commanderId == userId) await this.predictVoiceCommand(Client, connection, userId, username);  
-      // }
+        else if (this.commanderId == userId) await this.predictVoiceCommand(Client, connection, userId, username);    
+      }
     });
   }
 
@@ -91,6 +91,7 @@ class Bob {
     this.isProcessing = false;
     this.wakeWord = new Set(['hey, bob.', 'hey bob.', 'hey bob', 'hey, bob']);
     this.commanderId = null;
+    this.processingId = new Set();
     this.commands = [];
     // Grab all the command folders from the commands directory you created earlier
     const foldersPath = path.join(__dirname, 'commands');
@@ -168,9 +169,11 @@ class Bob {
 
   async predictWakeWord(userId, username) {
     this.isProcessing = true;
+    this.processingId.add(userId);
     const whisperProcess = spawn(".venv/bin/whisper", [
       "--model", "tiny",
       "--output_dir", "./voice/transcript",
+      "--device", "cuda",
       "--language", "en",
       "-f", "json",
       `voice/${userId}.mp3`
@@ -186,24 +189,24 @@ class Bob {
           this.isListeningToCommand = true;
           this.speak(`Listening to ${username}`);
         }
-        else {
-          this.isListeningToCommand = false;
-        }
         console.log(`${userId} wake: ` + result);
       } else {
         this.isListeningToCommand = false;
         console.error(`Whisper exec error. Exit code: ${code}`);
       }
       this.isProcessing = false;
+      this.processingId.delete(userId);
       whisperProcess.kill();
     });
   }
 
   async predictVoiceCommand(client, connection, userId, username) {
     this.isProcessing = true;
+    this.processingId.add(userId);
     const whisperProcess = spawn(".venv/bin/whisper", [
       "--model", "small",
       "--output_dir", "./voice/transcript",
+      "--device", "cuda",
       "--language", this.language,
       "-f", "json",
       `voice/${userId}.mp3`
@@ -237,14 +240,15 @@ class Bob {
       }
       // reset vars when command is over
       this.isProcessing = false;
+      this.processingId.delete(userId);
       whisperProcess.kill();
     });
-    whisperProcess.on('error', (err) => {
-      console.error('whisper process error:', err);
-    });
-    whisperProcess.stderr.on('data', (data) => {
-      console.error(`whisper stderr: ${data}`);
-    });
+    // whisperProcess.on('error', (err) => {
+    //   console.error('whisper process error:', err);
+    // });
+    // whisperProcess.stderr.on('data', (data) => {
+    //   console.error(`whisper stderr: ${data}`);
+    // });
   }
 
   async speak(text){
