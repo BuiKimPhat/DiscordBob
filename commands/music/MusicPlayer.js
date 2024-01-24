@@ -48,8 +48,8 @@ var MusicPlayer = {
                 url = `https://www.youtube.com/watch?v=${res.data.items[0].id.videoId}`;
                 title = res.data.items[0].snippet.title;
                 embedReply.setAuthor({ name: res.data.items[0].snippet.channelTitle, iconURL: 'https://www.youtube.com/s/desktop/d84e1538/img/favicon_96x96.png' })
-                    .setDescription(res.data.items[0].snippet.description)
                     .setImage(res.data.items[0].snippet.thumbnails.medium.url)
+                if (res.data.items[0].snippet.description.length >= 1) embedReply.setDescription(res.data.items[0].snippet.description);
             } else {
                 this.huh();
             }
@@ -58,7 +58,8 @@ var MusicPlayer = {
             title = url; 
         }
         embedReply.setTitle(htmlDecode(title)).setURL(url).setTimestamp()
-            .setFooter({ text: `Called by ${username}` });;
+            .addFields({ name: 'Your request', value: query })
+            .setFooter({ text: `Called by ${username}` });
 
         const stream = ytdl(url, { filter: 'audioonly' });
         let resource = createAudioResource(stream, { inlineVolume: true });
