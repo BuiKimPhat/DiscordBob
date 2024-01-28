@@ -44,7 +44,8 @@ module.exports = {
     async execute(interaction) {
         // interaction.guild is the object representing the Guild in which the command was run
         const prompt = interaction.options.getString("prompt");
+        await interaction.deferReply();
         const res = await gpt(prompt, interaction.user.displayName);
-        await interaction.reply(res);
+        await interaction.editReply(res);
     },
 };
