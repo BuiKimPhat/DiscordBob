@@ -170,7 +170,7 @@ class Bob {
   async predictWakeWord(userId, username) {
     this.isProcessing = true;
     this.processingId.add(userId);
-    const whisperProcess = spawn(".venv/bin/whisper", [
+    const whisperProcess = spawn("whisper", [
       "--model", "tiny",
       "--output_dir", "./voice/transcript",
       "--device", "cuda",
@@ -203,7 +203,7 @@ class Bob {
   async predictVoiceCommand(client, connection, userId, username) {
     this.isProcessing = true;
     this.processingId.add(userId);
-    const whisperProcess = spawn(".venv/bin/whisper", [
+    const whisperProcess = spawn("whisper", [
       "--model", "small",
       "--output_dir", "./voice/transcript",
       "--device", "cuda",
@@ -252,7 +252,7 @@ class Bob {
   }
 
   async speak(text){
-    const ttsProcess = spawn(".venv/bin/tts", [
+    const ttsProcess = spawn("tts", [
       "--model_name", "tts_models/en/vctk/vits",
       "--use_cuda", "true",
       "--speaker_idx", this.speakerIdx,
