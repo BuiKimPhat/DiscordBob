@@ -1,3 +1,4 @@
+const { bold } = require('discord.js');
 const { EndBehaviorType, VoiceConnectionStatus } = require("@discordjs/voice");
 const { OpusEncoder } = require("@discordjs/opus");
 const ffmpegStatic = require('ffmpeg-static');
@@ -5,6 +6,7 @@ const { spawn } = require("child_process");
 var fs = require('fs');
 var path = require("path");
 var MusicPlayer = require("../commands/music/MusicPlayer");
+const botDefaultTextChannelID = process.env.TEXT_CHANNEL_ID;
 
 class Bob {
 
@@ -231,8 +233,7 @@ class Bob {
           command.command.execute(params);
           this.isListeningToCommand = false;
         } else {
-          this.isListeningToCommand = true;
-          MusicPlayer.huh();
+          this.gpt(client, result, username);
         }
       } else {
         this.isListeningToCommand = false;
@@ -266,6 +267,40 @@ class Bob {
         console.error(`TTS exec error. Exit code: ${code}`);
       }
       ttsProcess.kill();
+    });
+  }
+
+
+  // GPT4ALL
+  async gpt(client, prompt, username){
+    const gptProcess = spawn("python3", [
+      "./python/gpt.py", `"${prompt}"`,
+    ]);
+    gptProcess.on('close', (code) => {
+      if (code === 0) {
+        const data = JSON.parse(fs.readFileSync(`./python/gpt_result.json`));
+        const result = data.output;
+        const startResponse = result.indexOf("\n");
+        if (startResponse != -1 && (startResponse + 1) < result.length){
+          const response = result.substring(startResponse + 1);
+          const request = prompt + result.substring(0, startResponse);
+          const output = bold(`${username}: \n`) + request + "\n\n" + bold("Bob: \n") + response;
+          const channel = client.channels.cache.get(botDefaultTextChannelID);
+          channel.send(output);    
+          this.speak(response);
+        } else {
+          const response = result;
+          const request = prompt;
+          const output = bold(`${username}: \n`) + request + "\n\n" + bold("Bob: \n") + response;
+          const channel = client.channels.cache.get(botDefaultTextChannelID);
+          channel.send(output);    
+          this.speak(response);
+        }
+      } else {
+        console.error(`GPT exec error. Exit code: ${code}`);
+      }
+      this.isListeningToCommand = false;
+      gptProcess.kill();
     });
   }
 
