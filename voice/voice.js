@@ -284,14 +284,14 @@ class Bob {
         if (startResponse != -1 && (startResponse + 1) < result.length){
           const response = result.substring(startResponse + 1);
           const request = prompt + result.substring(0, startResponse);
-          const output = bold(`${username}: \n`) + request + "\n\n" + bold("Bob: \n") + response;
+          const output = bold(`${username}: \n`) + request + "\n" + bold("Bob: \n") + response + "\n\n";
           const channel = client.channels.cache.get(botDefaultTextChannelID);
           channel.send(output);    
           this.speak(response);
         } else {
           const response = result;
           const request = prompt;
-          const output = bold(`${username}: \n`) + request + "\n\n" + bold("Bob: \n") + response;
+          const output = bold(`${username}: \n`) + request + "\n" + bold("Bob: \n") + response + "\n\n";
           const channel = client.channels.cache.get(botDefaultTextChannelID);
           channel.send(output);    
           this.speak(response);

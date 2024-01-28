@@ -16,13 +16,13 @@ const gpt = async (prompt, username) => {
                 gptProcess.kill();
                 const response = result.substring(startResponse + 1);
                 const request = prompt + result.substring(0, startResponse);
-                const output = bold(`${username}: \n`) + request + "\n\n" + bold("Bob: \n") + response;
+                const output = bold(`${username}: \n`) + request + "\n" + bold("Bob: \n") + response + "\n\n";
                 return output;
             } else {
                 gptProcess.kill();
                 const response = result;
                 const request = prompt;
-                const output = bold(`${username}: \n`) + request + "\n\n" + bold("Bob: \n") + response;
+                const output = bold(`${username}: \n`) + request + "\n" + bold("Bob: \n") + response + "\n\n";
                 return output;
             }
         } else {
