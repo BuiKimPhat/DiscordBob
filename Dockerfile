@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.3.1-base-ubuntu20.04
+FROM nvidia/cuda:12.3.1-devel-ubuntu22.04
 ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /root
