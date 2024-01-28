@@ -1,9 +1,8 @@
 const { bold, SlashCommandBuilder } = require('discord.js');
-const Bob = require("../../voice/voice")
 const { spawn } = require("child_process");
 var fs = require('fs');
 
-const gpt = async (prompt, username) => {
+const gpt = async (prompt, interaction) => {
     const gptProcess = spawn("python3", [
         "./python/gpt.py", `"${prompt}"`,
     ]);
@@ -16,19 +15,19 @@ const gpt = async (prompt, username) => {
                 gptProcess.kill();
                 const response = result.substring(startResponse + 1);
                 const request = prompt + result.substring(0, startResponse);
-                const output = bold(`${username}: \n`) + request + "\n" + bold("Bob: \n") + response + "\n\n";
-                return output;
+                const output = bold(`${interaction.user.displayName}: \n`) + request + "\n" + bold("Bob: \n") + response + "\n\n";
+                interaction.editReply(output);
             } else {
                 gptProcess.kill();
                 const response = result;
                 const request = prompt;
-                const output = bold(`${username}: \n`) + request + "\n" + bold("Bob: \n") + response + "\n\n";
-                return output;
+                const output = bold(`${interaction.user.displayName}: \n`) + request + "\n" + bold("Bob: \n") + response + "\n\n";
+                interaction.editReply(output);
             }
         } else {
             gptProcess.kill();
             console.error(`GPT exec error. Exit code: ${code}`);
-            return "Bob is so sick that he can't answer you right now :(";
+            interaction.editReply("Bob is so sick that he can't answer you right now :(");
         }
     });
 }
@@ -45,7 +44,6 @@ module.exports = {
         // interaction.guild is the object representing the Guild in which the command was run
         const prompt = interaction.options.getString("prompt");
         await interaction.deferReply();
-        const res = await gpt(prompt, interaction.user.displayName);
-        await interaction.editReply(res);
+        await gpt(prompt, interaction);
     },
 };
