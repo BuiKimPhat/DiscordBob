@@ -1,0 +1,7 @@
+node_modules
+.env
+.eslintrc.json
+.venv
+voice/*.mp3
+voice/transcript/*
+package-lock.json
