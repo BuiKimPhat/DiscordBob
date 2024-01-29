@@ -2,6 +2,7 @@
 A discord bot (Bob Assistant) with ASR, GPT, play music from Youtube, and more...  
 
 ## Dependencies
+- A Bot on Discord Developer Portal
 - ffmpeg python3 python3-venv python3-pip libtool espeak
 - nodejs
 - pip: openai-whisper TTS
@@ -27,3 +28,19 @@ Or if you have installed everything manually, run:
 ```
 node .
 ```
+## How to use
+The bot has 2 states:
+- Listening to wake-word state (state 1)
+- Listening to command state (state 2)
+
+In state 1, only voice line with `Hey, Bob` will be accepted and then switch to stage 2.  
+In stage 2, there are some voice commands below:
+- ['play music', 'play the music', 'play song', 'play the song', 'play track', 'play the track', 'phát nhạc'] : to play music from Youtube search
+- ['switch language', 'đổi ngôn ngữ'] : to switch the ASR language (in case you want to play songs in another language. I added English and Vietnamese only. You can add more if you want)
+- ['reset bot'] : reinitialize the bot, reset its configurations and state to default.
+
+You can also deploy your slash commands to your Discord server by using:
+```
+node deploy-commands.js
+```
+And then use the slash commands in your Discord server.
