@@ -233,6 +233,7 @@ class Bob {
           command.command.execute(params);
           this.isListeningToCommand = false;
         } else {
+          this.isListeningToCommand = false;
           this.gpt(client, result, username);
         }
       } else {
