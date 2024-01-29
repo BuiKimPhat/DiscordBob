@@ -5,3 +5,4 @@ node_modules
 voice/*.mp3
 voice/transcript/*
 package-lock.json
+gpt_result.json
