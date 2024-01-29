@@ -8,7 +8,7 @@ if len(sys.argv) == 1:
 else:
     prompt = sys.argv[1]
 
-output = model.generate(prompt, max_tokens=128, temp=0.3)
+output = model.generate(prompt, max_tokens=400, temp=0.3)
 
 
 # Data to be written
