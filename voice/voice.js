@@ -8,6 +8,10 @@ var path = require("path");
 var MusicPlayer = require("../commands/music/MusicPlayer");
 const botDefaultTextChannelID = process.env.TEXT_CHANNEL_ID;
 
+const isVoiceLine = (input) => {
+  return /^[A-Za-z0-9]+.*/.test(input);
+}
+
 class Bob {
 
   static instance = null;
@@ -221,20 +225,22 @@ class Bob {
         const result = data.text.trim().toLowerCase();
         console.log(`${userId} command: ` + result);
 
-        const command = this.getCommand(result, this.commands);
-        if (command.command) {
-          const params = {
-            client,
-            connection,
-            input: result,
-            username,
-            commandName: command.commandName,
-          }
-          command.command.execute(params);
-          this.isListeningToCommand = false;
-        } else {
-          this.isListeningToCommand = false;
-          this.gpt(client, result, username);
+        if (isVoiceLine(result)){
+          const command = this.getCommand(result, this.commands);
+          if (command.command) {
+            const params = {
+              client,
+              connection,
+              input: result,
+              username,
+              commandName: command.commandName,
+            }
+            command.command.execute(params);
+            this.isListeningToCommand = false;
+          } else {
+            this.isListeningToCommand = false;
+            this.gpt(client, result, username);
+          }  
         }
       } else {
         this.isListeningToCommand = false;
@@ -300,7 +306,6 @@ class Bob {
       } else {
         console.error(`GPT exec error. Exit code: ${code}`);
       }
-      this.isListeningToCommand = false;
       gptProcess.kill();
     });
   }
