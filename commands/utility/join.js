@@ -4,7 +4,7 @@ const Bob = require("../../voice/voice.js")
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('ai')
+		.setName('join')
 		.setDescription('Make AI assistant join voice channel'),
 	async execute(interaction) {
         if (interaction.member.voice){
