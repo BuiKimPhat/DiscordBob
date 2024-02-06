@@ -1,4 +1,3 @@
-var MusicPlayer = require("../../../commands/music/MusicPlayer")
 const Bob = require("../../voice")
 const botDefaultTextChannelID = process.env.TEXT_CHANNEL_ID;
 
